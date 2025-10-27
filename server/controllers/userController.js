@@ -91,7 +91,7 @@ export const loginUser = async (req, res) => {
 // GET: /api/users/data
 export const getUserById = async (req, res) => {
   try {
-    const { userId } = req.userId;
+    const  userId  = req.userId;
 
     const user =await User.findById(userId);
 
@@ -116,9 +116,9 @@ export const getUserById = async (req, res) => {
 // GET: /api/users/resumes
 export const getUserResumes = async (req, res) => {
   try {
-    const { userId } = req.userId;
+    const  userId  = req.userId;
 
-    const resumes =await Resume.find(userId);
+    const resumes =await Resume.find({userId});
     res
       .status(200)
       .json({

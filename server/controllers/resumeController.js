@@ -6,7 +6,7 @@ import fs from "fs";
 //POST: /api/resumes/create
 export const createResume = async (req, res) => {
   try {
-    const { userId } = req.userId;
+    const userId = req.userId;
 
     const { title } = req.body;
 
@@ -25,7 +25,7 @@ export const createResume = async (req, res) => {
 //POST: /api/resumes/delete
 export const deleteResume = async (req, res) => {
   try {
-    const { userId } = req.userId;
+    const userId = req.userId;
 
     const { resumeId } = req.params;
 
@@ -43,7 +43,7 @@ export const deleteResume = async (req, res) => {
 // GET: /api/resumes/get
 export const getResumeById = async (req, res) => {
   try {
-    const { userId } = req.userId;
+    const userId = req.userId;
 
     const { resumeId } = req.params;
 
@@ -72,7 +72,7 @@ export const getResumeById = async (req, res) => {
 // GET: /api/resumes/public
 export const getPublicResumeById = async (req, res) => {
   try {
-    const { resumeId } = req.params;
+    const {resumeId} = req.params;
 
     const resume = await Resume.findOne({ public: true, _id: resumeId });
 
@@ -95,12 +95,18 @@ export const getPublicResumeById = async (req, res) => {
 //POST: /api/resumes/update
 export const updateResume = async (req, res) => {
   try {
-    const { userId } = req.userId;
+    const userId = req.userId;
 
     const { resumeId, resumeData, removeBackground } = req.body;
     const image = req.file;
 
-    let resumeDataCopy = JSON.parse(resumeData);
+    let resumeDataCopy;
+
+    if (typeof resumeData === "string") {
+      resumeDataCopy = await JSON.parse(resumeData);
+    } else {
+      resumeDataCopy = structuredClone(resumeData);
+    }
 
     if (image) {
       const imageBufferData = fs.createReadStream(image.path);
@@ -114,9 +120,8 @@ export const updateResume = async (req, res) => {
             (removeBackground ? ",e-bgremove" : ""),
         },
       });
+      resumeDataCopy.personal_info.image = response.url;
     }
-
-    resumeDataCopy.personal_info.image= response.url;
 
     const resume = await Resume.findByIdAndUpdate(
       { userId, _id: resumeId },

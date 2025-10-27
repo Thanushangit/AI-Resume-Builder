@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const ResumeSchema = new mongoose.Schema({
-    userId:{type:mongoose.Schema.Types.ObjectId, ref:"User"},
+    userId:{type:mongoose.Schema.Types.ObjectId, ref:"User",required: true},
     title:{type:String, default:"Untitled Resume"},
     public:{type: Boolean, default:false},
     template:{type: String, default: "classic"},
@@ -26,6 +26,7 @@ const ResumeSchema = new mongoose.Schema({
             start_date:{type:String},
             end_date:{type:String},
             is_current:{type:Boolean},
+            description:{type:String}
         }
     ],
     project:[
