@@ -14,10 +14,13 @@ mongoConnect()
 
 app.use(express.json());
 app.use(cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-    optionsSuccessStatus: 200
+  origin: process.env.CLIENT_URL || '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 200
 }));
+
 
 app.get('/', (req,res)=>res.send("Server is live..."));
 app.use('/api/users', userRouter)
