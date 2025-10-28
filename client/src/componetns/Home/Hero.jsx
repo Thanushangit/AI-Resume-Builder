@@ -1,7 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
+
+    const {user} = useSelector(state=>state.auth)
     const [menuOpen, setMenuOpen] = React.useState(false);
 
     const logos = [
@@ -28,11 +31,15 @@ const Hero = () => {
                     </div>
 
                     <div className="flex gap-2">
-                        <Link to={"/app?state=register"} className="hidden md:block px-6 py-2 bg-green-500 hover:bg-green-700 active:scale-95 transition-all rounded-full text-white">
+                        <Link to={"/app?state=register"} className="hidden md:block px-6 py-2 bg-green-500 hover:bg-green-700 active:scale-95 transition-all rounded-full text-white" hidden={user}>
                             Get started
                         </Link>
-                        <Link to={"/app?state=login"} className="hidden md:block px-6 py-2 border active:scale-95 hover:bg-slate-50 transition-all rounded-full text-slate-700 hover:text-slate-900" >
+                        <Link to={"/app?state=login"} className="hidden md:block px-6 py-2 border active:scale-95 hover:bg-slate-50 transition-all rounded-full text-slate-700 hover:text-slate-900" hidden={user}>
                             Login
+                        </Link>
+
+                         <Link to={"/app"} className="hidden md:block px-8 py-2 bg-green-500 hover:bg-green-700 active:scale-95 transition-all rounded-full text-white" hidden={!user}>
+                            Dashboard
                         </Link>
                     </div>
 
@@ -45,11 +52,11 @@ const Hero = () => {
 
                 {/* Mobile Menu */}
                 <div className={`fixed inset-0 z-[100] bg-black/40 text-black backdrop-blur flex flex-col items-center justify-center text-lg gap-8 md:hidden transition-transform duration-300 ${menuOpen ? "translate-x-0" : "-translate-x-full"}`} >
-                    <a href="#" className="text-white">Home</a>
-                    <a href="#Features" className="text-white">Features</a>
-                    <a href="#Testimonials" className="text-white">Testimonials</a>
-                    <a href="#Contact" className="text-white">Contact</a>
-                    <button onClick={() => setMenuOpen(false)} className="active:ring-3 active:ring-white aspect-square size-10 p-1 items-center justify-center bg-green-600 hover:bg-green-700 transition text-white rounded-md flex" >
+                    <a href="#" onClick={() => setMenuOpen(false)} className="text-white">Home</a>
+                    <a href="#Features" onClick={() => setMenuOpen(false)} className="text-white">Features</a>
+                    <a href="#Testimonials" onClick={() => setMenuOpen(false)} className="text-white">Testimonials</a>
+                    <a href="#Contact" onClick={() => setMenuOpen(false)} className="text-white">Contact</a>
+                    <button onClick={() => setMenuOpen(false)} className="active:ring-3 active:ring-white aspect-square size-10 p-1 items-center justify-center bg-green-600 hover:bg-green-700 transition text-white rounded-md flex absolute top-3 right-3" >
                         X
                     </button>
                 </div>

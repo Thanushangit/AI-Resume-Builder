@@ -13,7 +13,11 @@ const PORT = process.env.PORT  || 3000;
 mongoConnect()
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+    optionsSuccessStatus: 200
+}));
 
 app.get('/', (req,res)=>res.send("Server is live..."));
 app.use('/api/users', userRouter)
