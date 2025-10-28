@@ -7,13 +7,14 @@ const Hero = () => {
     const {user} = useSelector(state=>state.auth)
     const [menuOpen, setMenuOpen] = React.useState(false);
 
-    const logos = [
-        'https://saasly.prebuiltui.com/assets/companies-logo/instagram.svg',
-        'https://saasly.prebuiltui.com/assets/companies-logo/framer.svg',
-        'https://saasly.prebuiltui.com/assets/companies-logo/microsoft.svg',
-        'https://saasly.prebuiltui.com/assets/companies-logo/huawei.svg',
-        'https://saasly.prebuiltui.com/assets/companies-logo/walmart.svg',
-    ]
+const logos = [
+    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg', 
+    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg',  
+    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg', 
+    'https://img.icons8.com/color/512/gemini-ai.png', 
+    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg', 
+];
+
     return (
         <>
             <div className="min-h-screen pb-20">
@@ -106,10 +107,10 @@ const Hero = () => {
                         </button>
                     </div>
 
-                    <p className="py-6 text-slate-600 mt-14">Trusting by leading brands, including</p>
+                    <p className="py-6 text-slate-600 mt-14">Built with modern technologies</p>
 
                     <div className="flex flex-wrap justify-between max-sm:justify-center gap-6 max-w-3xl w-full mx-auto py-4" id="logo-container">
-                        {logos.map((logo, index) => <img key={index} src={logo} alt="logo" className="h-6 w-auto max-w-xs" />)}
+                        {logos.map((logo, index) => <img key={index} src={logo} alt="logo" className="h-14 md:h-20 w-auto max-w-xs" />)}
                     </div>
                 </div>
             </div>
